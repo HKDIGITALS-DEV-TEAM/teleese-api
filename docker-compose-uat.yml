@@ -1,5 +1,5 @@
 services:
-  api:
+  api_uat:
     build:
       context: .
       dockerfile: Dockerfile-uat

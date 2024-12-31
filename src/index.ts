@@ -1,16 +1,21 @@
-// src/index.ts
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import { authRouter } from '@features/auth/domain/controller/auth.controller';
+import { app } from './app';
+import cors from 'cors';
 
-dotenv.config();
+// Configuration CORS
+app.use(
+    cors({
+        origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true,
+    })
+);
 
-const app: Express = express();
-const port = process.env.PORT || 3000;
+// Routes
+app.use('/api/v1/auth', authRouter);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+// Démarrer le serveur
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

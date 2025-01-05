@@ -1,3 +1,7 @@
 .env
 /dist
 /node_modules
+src/domain/models/category.ts
+src/domain/models/client.ts
+src/domain/models/etablissement.ts
+src/domain/models/subCategory.ts

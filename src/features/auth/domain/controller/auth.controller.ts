@@ -12,10 +12,11 @@ const REDIRECT_URI = "http://localhost:3000/api/v1/auth/callback";
 interface KCUser {
   email: string,
   name : string,
-  first_name : string,
-  last_name : string,
   preferred_username : string,
-  sub : string
+  sub : string,
+  email_verified : boolean,
+  given_name : string,
+  family_name : string
 }
 
 authRouter.get("/register", (req: Request, res: Response) => {
@@ -67,7 +68,7 @@ authRouter.get(
 
       await saveUserToDatabase(user);
 
-      res.json({ status: "utilisateur connecté" });
+      res.json({ status: "utilisateur connecté", user : user });
     } catch (error: any) {
       console.error(
         "Erreur d'authentification :",
@@ -78,14 +79,15 @@ authRouter.get(
   }
 );
 
-async function saveUserToDatabase(user: any) {
+async function saveUserToDatabase(user: KCUser) {
   try {
     const newUser = await User.create({
-      username: user.preferred_username,
+      first_name: user.given_name,
+      last_name: user.family_name,
       email: user.email,
     });
     if (newUser) {
-      console.log(`l'utilisateur ${newUser.username} a été ajouté en bd`);
+      console.log(`l'utilisateur ${newUser.first_name} ${newUser.last_name} a été ajouté en bd`);
     }
   } catch (error) {}
 

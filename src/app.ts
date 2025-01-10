@@ -30,7 +30,7 @@ app.use(keycloak.middleware());
 app.use(express.json());
 
 app.use(router);
- 
+
 db
 
 export { app };

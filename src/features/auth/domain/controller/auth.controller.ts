@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import axios from "axios";
-import User from "@domain/models/user";
+import { User } from "@features/auth/entity/userSchema";
 const authRouter = Router();
 
 const KEYCLOAK_URL = process.env.KEYCLOAK_URL as string;

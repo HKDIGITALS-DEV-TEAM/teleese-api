@@ -4,9 +4,13 @@ import cors from "cors";
 import { keycloak, memoryStore } from "@domain/middleware/keycloak-config";
 import router from "./routes.routes";
 import { db } from "@domain/config/db-connection";
+import ExpressWs from 'express-ws';
 
 
-const app: Application = express();
+
+const app: Application = ExpressWs(express()).app;
+
+
 
 app.use(
   cors({

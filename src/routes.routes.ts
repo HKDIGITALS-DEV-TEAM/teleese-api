@@ -1,15 +1,18 @@
 import { Router } from 'express';
 import authRouter from '@features/auth/domain/controller/auth.controller';
 import { incomingCallController, webSocketHandler } from '@features/call/domain/controller/call.controller';
-import companyRouter from '@features/feature-company/controller/company.controller';
+import companyRouter from '@features/company/controller/company.controller';
 
 const router = Router();
 
-// Routes
-router.use('/api/v1/auth', authRouter);
+const apiRouter = Router();
 
-router.use('/api/v1/call/incoming', incomingCallController)
-router.use('/api/v1/call/connection', webSocketHandler)
-router.use("/api/v1/company", companyRouter);
+// Routes API
+apiRouter.use('/auth', authRouter);
+apiRouter.use('/call/incoming', incomingCallController);
+apiRouter.use('/call/connection', webSocketHandler);
+apiRouter.use('/company', companyRouter);
+
+router.use('/api/v1', apiRouter);
 
 export default router;

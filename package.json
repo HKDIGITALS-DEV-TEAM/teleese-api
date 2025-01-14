@@ -27,7 +27,8 @@
     "mongoose": "^8.9.3",
     "openai": "^4.78.0",
     "tsconfig-paths": "^4.2.0",
-    "twilio": "^5.4.1"
+    "twilio": "^5.4.1",
+    "twilio-cli": "^5.22.9"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

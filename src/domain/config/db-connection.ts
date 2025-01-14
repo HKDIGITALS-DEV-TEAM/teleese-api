@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-//db connection
 export const db = mongoose
   .connect(`${process.env.MONGO_URI}`)
   .then((res) => {

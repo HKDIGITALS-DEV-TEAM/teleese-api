@@ -1,23 +1,36 @@
-import { keycloak, memoryStore } from '@domain/middleware/keycloak-config';
-import express, { Application } from 'express';
-import session from 'express-session';
+import express, { Application } from "express";
+import session from "express-session";
+import cors from "cors";
+import { keycloak, memoryStore } from "@domain/middleware/keycloak-config";
+import router from "./routes.routes";
+import { db } from "@domain/config/db-connection";
+
 
 const app: Application = express();
 
-// Middleware session
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET || 'defaultSecret',
-        resave: false,
-        saveUninitialized: true,
-        store: memoryStore,
-    })
+  cors({
+    origin: process.env.ALLOWED_ORIGINS?.split(",") || "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
 );
 
-// Initialiser Keycloak
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "defaultSecret",
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore,
+  })
+);
+
 app.use(keycloak.middleware());
 
-// Middleware JSON
 app.use(express.json());
+
+app.use(router);
+
+db
 
 export { app };

@@ -12,16 +12,23 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/express-ws": "^3.0.5",
+    "@types/ws": "^8.5.13",
     "api": "file:",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "elevenlabs": "^1.50.2",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "express-ws": "^5.0.2",
     "jsonwebtoken": "^9.0.2",
     "keycloak-connect": "^26.0.7",
     "mongoose": "^8.9.3",
-    "tsconfig-paths": "^4.2.0"
+    "openai": "^4.78.0",
+    "tsconfig-paths": "^4.2.0",
+    "twilio": "^5.4.1",
+    "twilio-cli": "^5.22.9"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

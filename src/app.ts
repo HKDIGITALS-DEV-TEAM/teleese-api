@@ -3,10 +3,15 @@ import session from "express-session";
 import cors from "cors";
 import { keycloak, memoryStore } from "@domain/middleware/keycloak-config";
 import router from "./routes.routes";
-import { db } from "@domain/config/db-connection";
+import connectToDB from "@domain/config/db-connection";
+import ExpressWs from 'express-ws';
+import connectToTwilioConsole from "@domain/config/twilio-console-connection";
 
 
-const app: Application = express();
+
+const app: Application = ExpressWs(express()).app;
+
+
 
 app.use(
   cors({
@@ -31,6 +36,8 @@ app.use(express.json());
 
 app.use(router);
 
-db
+// connectToTwilioConsole()
+ 
+// connectToDB()
 
 export { app };

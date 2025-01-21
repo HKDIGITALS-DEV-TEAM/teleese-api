@@ -28,4 +28,15 @@ companyRouter.post("/new", async (req: Request, res: Response) => {
 
 })
 
+companyRouter.get("/getCompanyByPhone/:phone_number", async (req: Request, res: Response) => {
+
+    const companyProvider = new CompanyProvider();
+    await companyProvider.getCompanyUsingPhone(req.params.phone_number).then((company) => {
+        res.status(200).json({message: "Company found successfully", company});
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json({message: "Error fetching company"});
+    })
+})
+
 export default companyRouter;

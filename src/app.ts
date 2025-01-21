@@ -36,8 +36,8 @@ app.use(express.json());
 
 app.use(router);
 
-// connectToTwilioConsole()
+connectToTwilioConsole()
  
-// connectToDB()
+connectToDB()
 
 export { app };

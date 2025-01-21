@@ -6,8 +6,7 @@ import getSpecificContext from "./context-getter";
 import restaurantTools from "../tools/restaurant-tools";
 
 /**
- * @function makeRestaurantResponse
- * @abstract elaborate a response from the user prompt/question
+ * @function makeRestaurantResponse elaborate a response from the user prompt/question
  * @param message
  * @param restaurantNumber
  * @returns

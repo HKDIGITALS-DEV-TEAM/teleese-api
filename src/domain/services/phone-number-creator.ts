@@ -5,8 +5,7 @@ const exec = util.promisify(child_process.exec);
 const SERVER_DOMAIN = process.env.SERVER_DOMAIN;
 
 /**
- * @function registerNewPhoneNumber
- * @abstract new twilio phones number creator and configurator
+ * @function registerNewPhoneNumber new twilio phones number creator and configurator
  * @param phoneNumber
  */
 async function registerNewPhoneNumber(phoneNumber: string) {

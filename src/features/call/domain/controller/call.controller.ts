@@ -52,7 +52,7 @@ export function handleIncomingCall(req: Request, res: Response) {
     },
     "Bonjour, je suis votre assistant vocal. Comment puis-je vous aider ?"
   );
-  const wsURL = `ws://${
+  const wsURL = `wss://${
     process.env.SERVER_DOMAIN
   }/api/v1/call/connection/${toPhone}`;
 

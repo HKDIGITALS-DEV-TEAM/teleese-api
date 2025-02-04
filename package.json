@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
     "@types/express-ws": "^3.0.5",
     "@types/ws": "^8.5.13",
     "api": "file:",
@@ -28,7 +29,8 @@
     "openai": "^4.78.0",
     "tsconfig-paths": "^4.2.0",
     "twilio": "^5.4.1",
-    "twilio-cli": "^5.22.9"
+    "twilio-cli": "^5.22.9",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

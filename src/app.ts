@@ -2,16 +2,13 @@ import express, { Application } from "express";
 import session from "express-session";
 import cors from "cors";
 import { keycloak, memoryStore } from "@domain/middleware/keycloak-config";
-import router from "./routes.routes";
+import router from "./routes";
 import connectToDB from "@domain/config/db-connection";
-import ExpressWs from 'express-ws';
-import connectToTwilioConsole from "@domain/config/twilio-console-connection";
+import ExpressWs from "express-ws";
+import TwilioService from "@domain/config/twilio";
+import { handleWebSocket } from "@features/call/domain/controller/call.controller";
 
-
-
-const app: Application = ExpressWs(express()).app;
-
-
+const { app } = ExpressWs(express());
 
 app.use(
   cors({
@@ -34,10 +31,14 @@ app.use(keycloak.middleware());
 
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use(router);
 
-connectToTwilioConsole()
- 
-connectToDB()
+TwilioService.getInstance().validateConnection();
+
+connectToDB();
+
+app.ws("/api/v1/call/connection/:phone", handleWebSocket);
 
 export { app };

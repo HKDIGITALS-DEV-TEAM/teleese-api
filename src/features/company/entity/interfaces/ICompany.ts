@@ -1,11 +1,12 @@
 import IConfiguration from "./IConfiguration";
+import INumbers from "./INumbers";
 
 interface ICompany {
     owner_id: string,
     name: string,
     description: string,
     category: string,
-    users: [],
+    numbers : INumbers
     configurations: IConfiguration,
     option: ""
 }

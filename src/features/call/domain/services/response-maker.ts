@@ -6,14 +6,14 @@ import getSpecificContext from "./context-getter";
 import restaurantTools from "../tools/restaurant-tools";
 
 /**
- * @function makeRestaurantResponse elaborate a response from the user prompt/question
+ * @function makeResponse elaborate a response from the user prompt/question
  * @param message
  * @param restaurantNumber
  * @returns
  */
-async function makeRestaurantResponse(
+export async function makeResponse(
   message: string,
-  restaurantNumber: number
+  restaurantNumber: string
 ): Promise<string> {
   const messages: ChatCompletionMessageParam[] = [
     {
@@ -34,6 +34,8 @@ async function makeRestaurantResponse(
       messages: messages,
       tools: restaurantTools,
       tool_choice: "auto",
+      temperature: 0.7,
+      max_tokens: 100
     });
 
     const responseMessage = response.choices[0].message;

@@ -1,15 +1,17 @@
 import { Request, Response, Router } from "express";
 import CompanyProvider from "../providers/companyProvider";
 import ICompany from "../entity/interfaces/ICompany";
-import registerNewPhoneNumber from "@domain/services/phone-number-creator";
+import TwilioService from "@domain/config/twilio";
 
 const companyRouter = Router();
+
+const twilioInstance = TwilioService.getInstance();
 
 companyRouter.post("/new", async (req: Request, res: Response) => {
   const companyData: ICompany = req.body;
 
   const companyProvider = new CompanyProvider();
-  await registerNewPhoneNumber(companyData.configurations.primary_phone);
+
   await companyProvider
     .addCompany(companyData)
     .then(() => {
@@ -19,6 +21,9 @@ companyRouter.post("/new", async (req: Request, res: Response) => {
       console.log(err);
       res.status(500).json({ message: "Error adding company" });
     });
+  await twilioInstance.registerPhoneNumber(
+    companyData.numbers.twilio_phone_number
+  );
 });
 
 export default companyRouter;

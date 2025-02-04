@@ -2,6 +2,7 @@
 import { userSchema } from '@features/auth/entity/userSchema';
 import mongoose from 'mongoose';
 import { configurationSchema } from './configurationSchema';
+import NumbersSchema from './numberSchema';
 
 const companySchema = new mongoose.Schema({
   owner_id: {
@@ -20,17 +21,17 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  users: {
-    type: [userSchema],
-    required: true
+  numbers : {
+    type : NumbersSchema,
+    require : true,
   },
   configurations: {
     type: configurationSchema,
-    required: true
+    required: false
   },
   option: {
     type: String,
-    required: true
+    required: false
   }
 });
 

@@ -3,14 +3,6 @@ import { voiceSettingsSchema } from "./voiceSettingsSchema";
 
 
 const configurationSchema = new mongoose.Schema({
-    primary_phone: {
-      type: String,
-      required: true
-    },
-    emergency_phone: {
-      type: String,
-      required: true
-    },
     voice_settings: {
       type: voiceSettingsSchema,
       required: true

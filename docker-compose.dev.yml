@@ -1,0 +1,29 @@
+services:
+  api-teleese-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: teleese_api_dev
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=dev
+      - MONGO_URI=mongodb://195.35.25.116:27017/teleese_dev
+
+  loki-teleese-dev:
+    image: grafana/loki:2.9.1
+    container_name: loki_api_teleese_dev
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/dev:/etc/loki
+    restart: always
+
+  promtail-teleese-dev:
+    image: grafana/promtail:2.9.1
+    container_name: promtail_api_teleese_dev
+    volumes:
+      - ./logs:/var/log
+      - ./promtail/dev:/etc/promtail
+    command: -config.file=/etc/promtail/config.dev.yml
+    restart: always

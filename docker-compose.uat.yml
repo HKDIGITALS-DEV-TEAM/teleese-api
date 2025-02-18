@@ -1,0 +1,29 @@
+services:
+  api-teleese-uat:
+    build:
+      context: .
+      dockerfile: Dockerfile-uat
+    container_name: teleese_api_uat
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=uat
+      - MONGO_URI=mongodb://195.35.25.116:27017/teleese_uat
+
+  loki-teleese-uat:
+    image: grafana/loki:2.9.1
+    container_name: loki_api_teleese_uat
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/uat:/etc/loki
+    restart: always
+
+  promtail-teleese-uat:
+    image: grafana/promtail:2.9.1
+    container_name: promtail_api_teleese_uat
+    volumes:
+      - ./logs:/var/log
+      - ./promtail/uat:/etc/promtail
+    command: -config.file=/etc/promtail/config.uat.yml
+    restart: always

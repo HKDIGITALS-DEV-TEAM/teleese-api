@@ -1,11 +1,8 @@
 import { Router, Response, Request } from "express";
-import authRouter from "@features/auth/domain/controller/auth.controller";
 import {
   handleIncomingCall,
   handleWebSocket,
-} from "@features/call/controller/call.controller";
-import companyRouter from "@features/company/controller/company.controller";
-import TwilioService from "@domain/config/twilio";
+} from "@features/call/domain/controller/call.controller";
 import express from "express";
 //import TwilioService from "@core/config/twilio";
 import { keycloak } from "@core/middleware/keycloak-config";
@@ -41,15 +38,13 @@ router.use(
 
 router.get("/generateTwilioNumber", async (req: Request, res: Response) => {
   const { code } = req.query;
-  const number = await TwilioService.getInstance().generatePhoneNumber(
-    code as string
-  );
-  if (number) {
+  const number = await TwilioService.getInstance().generatePhoneNumber(code as string);
+  if(number){
     res.status(200).send({
       generatedNumber: number,
     });
-  } else {
-    res.send("Aucun numéro trouvé pour le code : " + code);
+  }else{
+    res.send("Aucun numéro trouvé pour le code : " + code)
   }
 });
 apiRouter.patch("/setVoiceURL", async (_, res: Response) => {
@@ -61,5 +56,8 @@ apiRouter.patch("/setVoiceURL", async (_, res: Response) => {
     throw error;
   }
 });
+apiRouter.post("/call/incoming", handleIncomingCall);
+// apiRouter.ws("/call/connection", handleWebSocket);
+apiRouter.use("/company", companyRouter);
 
 export { router };

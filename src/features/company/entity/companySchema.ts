@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { configurationSchema } from './configurationSchema';
 import NumbersSchema from './numberSchema';
 
-const companySchema = new mongoose.Schema({
+export const companySchema = new mongoose.Schema({
   owner_id: {
     type: String,
     required: true

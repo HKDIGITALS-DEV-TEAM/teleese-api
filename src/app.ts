@@ -6,7 +6,7 @@ import router from "./routes";
 import connectToDB from "@domain/config/db-connection";
 import ExpressWs from "express-ws";
 import TwilioService from "@domain/config/twilio";
-import { handleWebSocket } from "@features/call/domain/controller/call.controller";
+import { handleWebSocket } from "@features/call/controller/call.controller";
 
 const { app } = ExpressWs(express());
 
@@ -39,6 +39,6 @@ TwilioService.getInstance().validateConnection();
 
 connectToDB();
 
-app.ws("/api/v1/call/connection/:phone", handleWebSocket);
+app.ws("/api/v1/call/connection", handleWebSocket);
 
 export { app };

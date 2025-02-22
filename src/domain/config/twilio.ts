@@ -59,7 +59,7 @@ class TwilioService {
           smsEnabled: true,
         });
 
-        console.log(availableNumbers)
+      console.log(availableNumbers);
 
       if (availableNumbers.length === 0) {
         throw new Error(
@@ -129,11 +129,43 @@ class TwilioService {
       );
       const cost = this.calculateTwilioCost(startBalanceValue, endBalanceValue);
 
-      console.log(`cout de l'enregistrement du numéro ${phoneNumber} : ${cost}`);
+      console.log(
+        `cout de l'enregistrement du numéro ${phoneNumber} : ${cost}`
+      );
     } catch (error) {
       console.error(`Error registering ${phoneNumber}:`, error);
       throw error;
     }
+  }
+
+  public async updateNumbersCallback(): Promise<void> {
+    const existingNumbers = await this.client.incomingPhoneNumbers.list();
+
+    const newConfigs = await Promise.all(
+      existingNumbers.map(async (item) => {
+        // Log ancienne configuration
+        const oldConfig = {
+          voiceUrl: item.voiceUrl,
+          voiceMethod: item.voiceMethod,
+          phoneNumber: item.phoneNumber,
+        };
+        console.log("Ancienne configuration:", oldConfig);
+
+        // Mise à jour
+        const updatedItem = await item.update({
+          voiceUrl: `https://${this.serverDomain}/api/v1/call/incoming`,
+          voiceMethod: "POST",
+        });
+
+        // Log nouvelle configuration
+        const newConfig = {
+          voiceUrl: updatedItem.voiceUrl,
+          voiceMethod: updatedItem.voiceMethod,
+          phoneNumber: item.phoneNumber
+        };
+        console.log("Nouvelle configuration:", newConfig);
+      })
+    );
   }
 
   //si un jour on a besoin d'envoyer des sms
@@ -167,7 +199,7 @@ class TwilioService {
   // }
 
   /**
-   * 
+   *
    * @returns the currnt twilio account's balance
    */
   private async getCurrentBalance(): Promise<BalanceInstance> {

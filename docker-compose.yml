@@ -2,7 +2,7 @@ services:
   api-teleese:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     container_name: teleese_api_prod
     ports:
       - "5000:5000"

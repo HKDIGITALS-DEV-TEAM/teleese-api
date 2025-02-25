@@ -2,7 +2,7 @@ services:
   api-teleese-uat:
     build:
       context: .
-      dockerfile: Dockerfile-uat
+      dockerfile: docker/Dockerfile.uat
     container_name: teleese_api_uat
     ports:
       - "5001:5001"

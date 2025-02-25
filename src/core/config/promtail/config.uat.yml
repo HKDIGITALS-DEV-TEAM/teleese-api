@@ -1,17 +1,19 @@
 server:
   http_listen_port: 9080
+  grpc_listen_port: 0
 
 positions:
-  filename: /tmp/positions.yaml
+  filename: /var/log/promtail-positions-uat.yaml
 
 clients:
-  - url: http://loki:3100/loki/api/v1/push
+  - url: http://loki-teleese-uat.hkdigitals.com/loki/api/v1/push
 
 scrape_configs:
-  - job_name: "teleese-logs"
+  - job_name: "teleese-api-uat"
     static_configs:
       - targets:
           - localhost
         labels:
-          job: "teleese-api-uat"
+          job: "teleese-api"
+          env: uat
           __path__: /var/log/*.log

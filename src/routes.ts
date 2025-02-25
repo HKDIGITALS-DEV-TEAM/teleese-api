@@ -1,12 +1,10 @@
 import { Router, Response, Request } from "express";
-import {
-  handleIncomingCall,
-  handleWebSocket,
-} from "@features/call/domain/controller/call.controller";
 import express from "express";
 //import TwilioService from "@core/config/twilio";
 import { keycloak } from "@core/middleware/keycloak-config";
 import { checkAndCreateUser } from "@core/middleware/check-and-create-user";
+import companyRouter from "@features/company/domain/controller/company-controller";
+import TwilioService from "@core/config/twilio";
 
 // Création du routeur principal
 const router = express.Router();
@@ -24,9 +22,6 @@ const apiRouter = Router();
 router.get('/', async (_, res : Response)=>{
   res.send('server is running')
 })
-
-// Routes API
-apiRouter.use("/auth", authRouter);
 
 // Routes protégées pour l'authentification
 router.use(
@@ -47,7 +42,8 @@ router.get("/generateTwilioNumber", async (req: Request, res: Response) => {
     res.send("Aucun numéro trouvé pour le code : " + code)
   }
 });
-apiRouter.patch("/setVoiceURL", async (_, res: Response) => {
+
+/*apiRouter.patch("/setVoiceURL", async (_, res: Response) => {
   try {
     const updatedConfig = await TwilioService.getInstance().updateNumbersCallback();
     res.status(200).send({error : false, message : "numbers updated successfully !"});
@@ -55,8 +51,8 @@ apiRouter.patch("/setVoiceURL", async (_, res: Response) => {
     console.log(error);
     throw error;
   }
-});
-apiRouter.post("/call/incoming", handleIncomingCall);
+});*/
+
 // apiRouter.ws("/call/connection", handleWebSocket);
 apiRouter.use("/company", companyRouter);
 

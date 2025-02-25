@@ -10,7 +10,7 @@ import {
 } from "../../utils/websocket-util";
 import { GlobalException } from "@core/exceptions/global-exception";
 import logger from "@infrastructure/logger/logger";
-import { CallService } from "@features/call/services/call-service-impl";
+import { CallService } from "../services/call-service-impl";
 
 const callRouter = Router();
 const callService = new CallService();

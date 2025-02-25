@@ -25,6 +25,7 @@ WORKDIR /app
 
 # Copier uniquement les dépendances de production pour réduire la taille de l'image
 COPY package*.json ./
+
 RUN npm install --production
 
 # Copier les fichiers compilés depuis l'étape de build

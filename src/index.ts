@@ -1,16 +1,13 @@
-// src/index.ts
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import logger from "@infrastructure/logger/logger";
+import { app } from "./app";
 
-dotenv.config();
-
-const app: Express = express();
-const port = process.env.PORT || 3000;
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+// Démarrer le serveur
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  logger.info(`Serveur démarré sur le port ${PORT}`);
+  logger.info(
+    `Swagger disponible sur ${
+      process.env.API_HOSTNAME || "http://localhost:3000"
+    }/${process.env.API_PREFIX || "api/v1"}/docs`
+  );
 });

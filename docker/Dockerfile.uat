@@ -23,9 +23,9 @@ FROM node:20-alpine
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier uniquement les dépendances de production pour réduire la taille de l'image
 COPY package*.json ./
-RUN npm install --production
+
+RUN npm install
 
 # Copier les fichiers compilés depuis l'étape de build
 COPY --from=builder /app/dist ./dist

@@ -8,9 +8,9 @@ import {
   cleanupSession,
   CallSession,
 } from "../../utils/websocket-util";
-import { CallService } from "../services/call-service-impl";
 import { GlobalException } from "@core/exceptions/global-exception";
 import logger from "@infrastructure/logger/logger";
+import { CallService } from "../services/call-service-impl";
 
 const callRouter = Router();
 const callService = new CallService();

@@ -169,7 +169,7 @@ class TwilioService {
 
   /**
    * 
-   * @returns the currnt twilio account's balance
+   * @returns the current twilio account's balance
    */
   private async getCurrentBalance(): Promise<BalanceInstance> {
     try {

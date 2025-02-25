@@ -6,24 +6,37 @@ services:
     container_name: teleese_api_uat
     ports:
       - "5001:5001"
-    environment:
-      - NODE_ENV=uat
-      - MONGO_URI=mongodb://195.35.25.116:27017/teleese_uat
+    env_file:
+      - .env.test
+    networks:
+      - shared-network
 
   loki-teleese-uat:
     image: grafana/loki:2.9.1
     container_name: loki_api_teleese_uat
     ports:
-      - "3100:3100"
+      - "3201:3100"
     volumes:
-      - ./loki/uat:/etc/loki
-    restart: always
+      - ./src/core/config/loki/config.uat.yml:/etc/loki/local-config.yml
+      - ./loki:/etc/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    networks:
+      - shared-network
 
   promtail-teleese-uat:
     image: grafana/promtail:2.9.1
+    ports:
+      - "9181:9080"
     container_name: promtail_api_teleese_uat
     volumes:
+      - ./src/core/config/promtail/config.uat.yml:/etc/promtail/promtail-config.yml
       - ./logs:/var/log
-      - ./promtail/uat:/etc/promtail
-    command: -config.file=/etc/promtail/config.uat.yml
-    restart: always
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true
